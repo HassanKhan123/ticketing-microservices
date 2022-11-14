@@ -22,6 +22,7 @@ router.post(
     const { email, password } = req.body;
 
     console.log("creating!!");
+    throw new DatabaseConnectionError();
     res.send({});
   }
 );
