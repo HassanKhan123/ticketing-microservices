@@ -4,7 +4,8 @@ import "express-async-errors";
 
 import cookieSession from "cookie-session";
 
-import { errorHandler, NotFoundError } from "@hkticketing/common";
+import { errorHandler, NotFoundError, currentUser } from "@hkticketing/common";
+import { createTickerRouter } from "./routes/new";
 
 const app = express();
 app.set("trust proxy", true);
@@ -15,6 +16,10 @@ app.use(
     secure: true,
   })
 );
+
+app.use(currentUser);
+
+app.use(createTickerRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();
